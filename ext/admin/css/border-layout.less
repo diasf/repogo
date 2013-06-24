@@ -1,0 +1,45 @@
+.border-layout-top(@height) {
+    > .bl-layout.bl-top {
+        height: @height;
+        bottom: auto;
+    }
+	
+    > .bl-layout.bl-left,
+    > .bl-layout.bl-center,
+    > .bl-layout.bl-right {
+        top: @height;
+    }
+}
+
+.border-layout-left(@width) {
+    > .bl-layout.bl-left {
+        width: @width;
+        right: auto;
+    }
+    > .bl-layout.bl-center {
+        left: @width;
+    }
+}
+
+.border-layout-right(@width) {
+    > .bl-layout.bl-right {
+        width: @width;
+        left: auto;
+    }
+    > .bl-layout.bl-center {
+        right: @width;
+    }
+}
+
+.border-layout-bottom(@height) {
+    > .bl-layout.bl-bottom {
+        height: @height;
+        top: auto;
+    }
+    > .bl-layout.bl-left,
+    > .bl-layout.bl-center,
+    > .bl-layout.bl-right {
+        bottom: @height;
+    }
+}
+
