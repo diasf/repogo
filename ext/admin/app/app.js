@@ -64,7 +64,7 @@ rAdm.directive.directive('rAdmMenu', [function () {
 
 rAdm.filter = angular.module("rAdm.filter", []);
 
-rAdm.main = angular.module("rAdm", ["rAdm.service", "rAdm.directive", "rAdm.filter"]);
+rAdm.main = angular.module("rAdm", ["comp.localization", "rAdm.service", "rAdm.directive", "rAdm.filter"]);
 rAdm.main.run(["userService", function (userService) {
 	"use strict";
 	// initialize the module here...

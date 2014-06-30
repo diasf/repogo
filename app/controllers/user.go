@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"github.com/robfig/revel"
 	"github.com/diasf/repogo/app/models"
+	"github.com/robfig/revel"
 )
 
 type User struct {
