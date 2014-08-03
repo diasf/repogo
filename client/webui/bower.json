@@ -1,0 +1,18 @@
+{
+  "name": "repogo-webui",
+  "version": "0.0.1",
+  "homepage": "https://github.com/diasf/repogo",
+  "authors": [
+    "Filipe Dias-Lewandowski"
+  ],
+  "description": "web interface for the repogo repository",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "1.3.x",
+    "angular-ui-router": "0.2.10",
+    "angular-mocks": "~1.2.x",
+    "bootstrap": "v3.2.0",
+    "angular-bootstrap": "0.11.0"
+  }
+}
