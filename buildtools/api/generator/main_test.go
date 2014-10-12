@@ -88,7 +88,31 @@ func TestDefinitions(t *testing.T) {
 	sw := loadSwagger(t, PETSTORE_EXPANDED_FILE)
 	a := newAssert(t)
 
-	a.assertNonNil("definitions.pet", sw.Definitions["pet"])
+	def := sw.Definitions["pet"]
+	a.assertNonNil("definitions.pet", def)
+
+	a.assertEqualStrSl("definitions.pet.required", def.Required, []string{
+		"id",
+		"name",
+	})
+	a.assertEqualInt("len(definitions.pet.properties)", len(def.Properties), 3)
+	a.assertEqualStr("definitions.pet.properties.id.type", def.Properties["id"].Type, "integer")
+	a.assertEqualStr("definitions.pet.properties.id.format", def.Properties["id"].Format, "int64")
+	a.assertEqualStr("definitions.pet.properties.name.type", def.Properties["name"].Type, "string")
+	a.assertEqualStr("definitions.pet.properties.tag.type", def.Properties["tag"].Type, "string")
+
+	def = sw.Definitions["newPet"]
+	a.assertNonNil("definitions.newPet.allOf", def.AllOf)
+	a.assertEqualInt("len(definitions.newPet.allOf)", len(def.AllOf), 2)
+	a.assertEqualStr("definitions.newPet.allOf[0].ref", def.AllOf[0].Ref, "pet")
+
+	newPet := def.AllOf[1]
+	a.assertEqualStrSl("definitions.newPet.allOf[1].required", newPet.Required, []string{
+		"name",
+	})
+	a.assertEqualInt("len(definitions.newPet.allOf[1].properties)", len(newPet.Properties), 1)
+	a.assertEqualStr("definitions.newPet.allOf[1].properties.id.type", newPet.Properties["id"].Type, "number")
+	a.assertEqualStr("definitions.newPet.allOf[1].properties.id.format", newPet.Properties["id"].Format, "float64")
 }
 
 func loadSwagger(t *testing.T, filePath string) *Swagger {

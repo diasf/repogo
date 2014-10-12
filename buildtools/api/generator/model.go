@@ -126,12 +126,16 @@ type Parameter struct {
 }
 
 type Schema struct {
+	RefType
 	ItemsType
-	Required   []string            `json:"required"`
-	Properties map[string]Property `json:"properties"`
-}
-
-type Property struct {
+	Title         string            `json:"title"`
+	Description   string            `json:"description"`
+	MaxProperties int64             `json:"maxProperties"`
+	MinProperties int64             `json:"minProperties"`
+	Required      []string          `json:"required"`
+	Items         *Schema           `json:"items"`
+	Properties    map[string]Schema `json:"properties"`
+	AllOf         []Schema          `json:"allOf"`
 }
 
 type ItemsType struct {
@@ -140,18 +144,19 @@ type ItemsType struct {
 	Format           string        `json:"format"`
 	Items            *ItemsType    `json:"items"`
 	CollectionFormat string        `json:"collectionFormat"`
-	Default          string        `json:"default"`
+	Default          interface{}   `json:"default"`
 	Maximum          float64       `json:"maximum"`
 	ExclusiveMaximum bool          `json:"exclusiveMaximum"`
 	Minimum          float64       `json:"minimum"`
 	ExclusiveMinimum bool          `json:"exclusiveMinimum"`
 	MaxLength        int64         `json:"maxLength"`
+	MinLength        int64         `json:"minLength"`
 	Pattern          string        `json:"pattern"`
 	MaxItems         int64         `json:"maxItems"`
 	MinItems         int64         `json:"minItems"`
 	UniqueItems      bool          `json:"uniqueItems"`
 	Enum             []interface{} `json:"enum"`
-	multipleOf       float64       `json:"multipleOf"`
+	MultipleOf       float64       `json:"multipleOf"`
 }
 
 type Tags struct {
