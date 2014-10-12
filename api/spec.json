@@ -1,0 +1,142 @@
+{
+    "swagger": 2.0,
+    "info": {
+        "version": "0.0.1",
+        "title": "Repository API",
+        "description": "Simple API to access the backend repository",
+        "contact": {
+            "name": "Filipe Dias-Lewandowski",
+            "url": "https://github.com/diasf"
+        },
+        "license": {
+            "name": "BSD",
+            "url": "https://github.com/diasf/repogo/blob/master/LICENSE"
+        }
+    },
+    "host": "repogo.gwired.info",
+    "basePath": "/api",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/contents": {
+            "get": {
+                "description": "Returns all the contents",
+                "operationId": "findContents",
+                "parameters": [
+                    { "$ref": "#/parameters/tags" },
+                    { "$ref": "#/parameters/page" },
+                    { "$ref": "#/parameters/pageSize" }
+                ],
+                "responses": {
+                    "200": { "$ref": "#/responses/CollectionResponse" },
+                    "default": { "$ref": "#/responses/ErrorResponse" }
+                }
+            }
+        }
+    },
+    "parameters": {
+        "page": {
+            "name": "page",
+            "in": "query",
+            "description": "The page to return",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+        },
+        "pageSize": {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Number of items in the page",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+        },
+        "tags": {
+            "name": "tags",
+            "in": "query",
+            "description": "tags to filter by",
+            "required": false,
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "responses": {
+        "ContentCollectionResponse": {
+            "description": "List of contents",
+            "schema": {
+                "allOf": [
+                    { "$ref": "#/responses/CollectionResponse" },
+                    {
+                        "properties": {
+                            "contents": { "$ref": "#/definitions/ContentArray" }
+                        }
+                    }
+                ]
+            }
+        },
+        "CollectionResponse": {
+            "description": "Base collection response",
+            "schema": {
+                "properties": {
+                    "total": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            }
+        },
+        "ErrorResponse": {
+            "description": "Standard error response",
+            "schema": {
+                "$ref": "#/definitions/errorModel"
+            }
+        }
+    },
+    "definitions": {
+        "Content": {
+            "description": "Content definition",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ContentArray": {
+            "description": "Array of contents",
+            "type": "array",
+            "items": { "$ref": "#/definitions/Content" }
+        },
+        "errorModel": {
+            "description": "Standard error",
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
