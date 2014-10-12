@@ -7,15 +7,18 @@ import (
 	"github.com/diasf/repogo/core/net/mux"
 )
 
-var contentRouter mux.Router
-
 func init() {
-	contentRouter = RegisterAPIComponent("content").Handle("/", &ContentHandler{})
+	configureRoutes(RegisterAPIComponent("content"))
 }
 
-type ContentHandler struct {
+func configureRoutes(router mux.SubRouter) {
+	ch := &contentHandler{}
+	router.Method("GET").Handle("{contentId}", ch.findById)
 }
 
-func (h *ContentHandler) ServeHTTP(rw http.ResponseWriter, rq *http.Request) {
+type contentHandler struct {
+}
+
+func (h *ContentHandler) findById(rw http.ResponseWriter, rq *http.Request) {
 	fmt.Fprint(rw, "Content ...")
 }

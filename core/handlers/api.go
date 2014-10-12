@@ -14,6 +14,6 @@ func init() {
 	})
 }
 
-func RegisterAPIComponent(prefix string) mux.Router {
+func RegisterAPIComponent(prefix string) mux.SubRouter {
 	return apiRouter.SubRouter(prefix)
 }
