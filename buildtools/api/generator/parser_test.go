@@ -8,7 +8,7 @@ func TestParseSwagger(t *testing.T) {
 	sw := loadSwagger(t, PETSTORE_EXPANDED_FILE)
 	a := newAssert(t)
 
-	a.assertEqualFl32("swagger", sw.Swagger, 2.0)
+	a.assertEqualStr("swagger", sw.Swagger, "2.0")
 	a.assertEqualStr("host", sw.Host, "petstore.swagger.wordnik.com")
 	a.assertEqualStrSl("schemes", sw.Schemes, []string{"http"})
 	a.assertEqualStrSl("consumes", sw.Consumes, []string{"application/json"})

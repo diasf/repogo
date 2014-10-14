@@ -6,7 +6,7 @@ import (
 )
 
 type Swagger struct {
-	Swagger      float32              `json:"swagger"`
+	Swagger      string               `json:"swagger"`
 	Info         Info                 `json:"info"`
 	ExternalDocs ExternalDocs         `json:"externalDocs"`
 	Host         string               `json:"host"`
