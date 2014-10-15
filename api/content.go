@@ -1,21 +1,45 @@
 package api
 
-type ContentService interface {
-	GetContents(request GetContentsRequest) GetContentsResponse
+func FindContents(param FindContentsParam) FindContentsResponse {
+
 }
 
-type GetContentsRequest struct {
-	Page     int `json:"page"`
-	PageSize int `json:"pageSize"`
+type FindContentsParam struct {
+	Tags     []string
+	Page     int32
+	PageSize int32
 }
 
-type ContentsResponse struct {
-	Total  int       `json:"total"`
-	Result []Content `json:"result"`
+type FindContentsResponse struct {
+	Code200 ContentCollectionResponse
+	Default ErrorResponse
 }
 
-type Content struct {
-	ID     string `json:"id"`
-	Parent string `json:"parent"`
-	Label  string `json:"label"`
+type ErrorResponse struct {
+	ErrorResource
+}
+
+type ContentCollectionResponse struct {
+	CollectionResource
+	Contents []ContentResource `json:"contents"`
+}
+
+type ContentResource struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
+}
+
+type CollectionResource struct {
+	Meta MetaResource `json:"meta"`
+}
+
+type MetaResource struct {
+	Total  int64 `json:"total"`
+	Page   int64 `json:"page"`
+	IsLast bool  `json:"isLast"`
+}
+
+type ErrorResource struct {
+	Code    int64 `json:"code"`
+	Message bool  `json:"message"`
 }

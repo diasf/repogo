@@ -35,8 +35,8 @@
                     { "$ref": "#/parameters/pageSize" }
                 ],
                 "responses": {
-                    "200": { "$ref": "#/responses/CollectionResponse" },
-                    "default": { "$ref": "#/responses/ErrorResponse" }
+                    "200": { "$ref": "#/responses/ContentCollection" },
+                    "default": { "$ref": "#/responses/Error" }
                 }
             }
         }
@@ -70,11 +70,11 @@
         }
     },
     "responses": {
-        "ContentCollectionResponse": {
+        "ContentCollection": {
             "description": "List of contents",
             "schema": {
                 "allOf": [
-                    { "$ref": "#/responses/CollectionResponse" },
+                    { "$ref": "#/definitions/Collection" },
                     {
                         "properties": {
                             "contents": { "$ref": "#/definitions/ContentArray" }
@@ -83,21 +83,10 @@
                 ]
             }
         },
-        "CollectionResponse": {
-            "description": "Base collection response",
-            "schema": {
-                "properties": {
-                    "total": {
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                }
-            }
-        },
-        "ErrorResponse": {
+        "Error": {
             "description": "Standard error response",
             "schema": {
-                "$ref": "#/definitions/errorModel"
+                "$ref": "#/definitions/Error"
             }
         }
     },
@@ -122,7 +111,31 @@
             "type": "array",
             "items": { "$ref": "#/definitions/Content" }
         },
-        "errorModel": {
+        "Collection": {
+            "description": "Base collection resource",
+            "properties": {
+                "meta": {
+                    "$ref": "#/definitions/CollectionMeta"
+                }
+            }
+        },
+        "CollectionMeta": {
+            "description": "Meta object for collections",
+            "properties": {
+                "total": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "page": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "isLast": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Error": {
             "description": "Standard error",
             "required": [
                 "code",
