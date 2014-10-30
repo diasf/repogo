@@ -16,7 +16,7 @@ func Execute(schemaFile, generatorId string, options map[string]string) error {
 	}
 
 	if generator, err = genFunc(options); err != nil {
-		return GeneratorInitialisationError{generatorId, ParentError{err}}
+		return GeneratorInitialisationError{generatorId, err}
 	}
 
 	return generator.Generate(sw)
@@ -43,22 +43,10 @@ func (g GeneratorNotFoundError) Error() string {
 }
 
 type GeneratorInitialisationError struct {
-	Id string
-	ParentError
+	Id  string
+	Err error
 }
 
 func (g GeneratorInitialisationError) Error() string {
-	return fmt.Sprintf("Could not initialize generator '%s': %s", g.Id, g.ParentError.Error())
-}
-
-type ParentError struct {
-	Parent error
-}
-
-func (p ParentError) Error() string {
-	var parentError string
-	if p.Parent != nil {
-		parentError = p.Parent.Error()
-	}
-	return parentError
+	return fmt.Sprintf("Could not initialize generator [%s: %s]", g.Id, g.Err.Error())
 }
