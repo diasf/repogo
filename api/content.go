@@ -1,7 +1,7 @@
 package api
 
-func FindContents(param FindContentsParam) FindContentsResponse {
-
+type Contents interface {
+	FindContents(param FindContentsParam) FindContentsResponse
 }
 
 type FindContentsParam struct {

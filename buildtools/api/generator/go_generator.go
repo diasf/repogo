@@ -1,5 +1,7 @@
 package generator
 
+import "errors"
+
 func init() {
 	addGenerator("go", newGoGenerator)
 }
@@ -9,8 +11,13 @@ func newGoGenerator(opts map[string]string) (Generator, error) {
 }
 
 type GoGenerator struct {
+	Dest string
 }
 
 func (g *GoGenerator) Generate(sw *Swagger) error {
-	return nil //errors.New("Not Implemented")
+	if sw == nil {
+		return errors.New("Invalid parameter")
+	}
+
+	return nil
 }
